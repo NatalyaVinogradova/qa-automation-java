@@ -6,10 +6,15 @@ package com.tinkoff.edu.app;
  * @author Natalya Vinogradova
  */
 public class LoanCalcService {
+    public LoanCalcRepository repository;
     /**
      * Loan calculation
      */
-    public static int createRequest() {
-        return LoanCalcRepository.save();
+    public LoanCalcService() {
+        repository = new LoanCalcRepository();
+    }
+
+    public int createRequest() {
+        return repository.save();
     }
 }

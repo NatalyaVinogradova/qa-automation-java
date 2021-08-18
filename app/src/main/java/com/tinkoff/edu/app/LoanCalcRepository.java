@@ -6,14 +6,14 @@ package com.tinkoff.edu.app;
  * @author Natalya Vinogradova
  */
 public class LoanCalcRepository {
-    private static int requestId;
+    private static int requestId = 0;
 
     /**
      * TODO persists request
      *
      * @return Request Id
      */
-    public static int save() {
+    public int save() {
         return ++requestId;
     }
 }
