@@ -1,7 +1,6 @@
 package com.tinkoff.edu.test;
 
-import com.tinkoff.edu.app.LoanCalcController;
-import com.tinkoff.edu.app.LoanCalcService;
+import com.tinkoff.edu.app.*;
 
 /**
  * Created on 13.08.2021
@@ -10,12 +9,11 @@ import com.tinkoff.edu.app.LoanCalcService;
  */
 public class LoanCalcTest {
     public static void main(String... args) {
-        LoanCalcController controller;
-        controller = new LoanCalcController();
-        int requestId = controller.createRequest();
+        LoanCalcController controller = new LoanCalcController(new ConcreteLoanCalcService(new StaticVariableLoanCalcRepository()));
+        LoanRequest request = new LoanRequest(LoanType.PERSON, 2500000, 60);
+        LoanResponse response = controller.createRequest(request);
 
-        LoanCalcService a = controller.service;
-
-        System.out.println(requestId + " must be 1");
+        System.out.println("Request: " + request);
+        System.out.println(response.getRequestId() + " must be 1");
     }
 }

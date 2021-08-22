@@ -9,14 +9,14 @@ public class LoanCalcController {
     /**
      * TODO Validates and logs request.
      */
-    public LoanCalcService service;
+    private final LoanCalcService service;
 
-    public LoanCalcController(){
-        service = new LoanCalcService();
+    public LoanCalcController(LoanCalcService service) {
+        this.service = service;
     }
 
-    public int createRequest() {
+    public LoanResponse createRequest(LoanRequest request) {
         LoanCalcLogger.log();
-        return service.createRequest();
+        return service.createRequest(request);
     }
 }
