@@ -10,15 +10,12 @@ import com.tinkoff.edu.app.enums.ResponseType;
 public class LoanResponse {
     private final ResponseType type;
     private final int requestId;
+    private final LoanRequest request;
 
-    public LoanResponse(ResponseType type, int requestId) {
+    public LoanResponse(ResponseType type, int requestId, LoanRequest request) {
+        this.request = request;
         this.type = type;
         this.requestId = requestId;
-    }
-
-    public LoanResponse(ResponseType type) {
-        this.type = type;
-        this.requestId = 0;
     }
 
     public ResponseType getType() {

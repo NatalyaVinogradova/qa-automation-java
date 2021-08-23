@@ -18,7 +18,7 @@ public class IpNotFriendlyService extends ConcreteLoanCalcService {
 
     @Override
     public LoanResponse createRequest(LoanRequest request) {
-        if (request.getType().equals(LoanType.IP)) return new LoanResponse(ResponseType.DENIED);
+        if (request.getType().equals(LoanType.IP)) return new LoanResponse(ResponseType.DENIED, 0, request);
         return super.createRequest(request);
     }
 }

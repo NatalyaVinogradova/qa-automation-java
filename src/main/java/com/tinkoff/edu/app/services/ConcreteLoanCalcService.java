@@ -21,8 +21,6 @@ public class ConcreteLoanCalcService implements LoanCalcService {
     }
 
     public LoanResponse createRequest(LoanRequest request) {
-        int requestId = repository.save(request);
-
-        return new LoanResponse(ResponseType.APPROVED, requestId);
+        return repository.save(request);
     }
 }

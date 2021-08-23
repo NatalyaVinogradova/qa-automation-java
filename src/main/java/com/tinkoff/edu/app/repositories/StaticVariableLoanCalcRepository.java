@@ -1,6 +1,8 @@
 package com.tinkoff.edu.app.repositories;
 
+import com.tinkoff.edu.app.enums.ResponseType;
 import com.tinkoff.edu.app.models.LoanRequest;
+import com.tinkoff.edu.app.models.LoanResponse;
 
 /**
  * Created on 13.08.2021
@@ -16,7 +18,7 @@ public class StaticVariableLoanCalcRepository implements LoanCalcRepository {
      * @return Request Id
      */
     @Override
-    public int save(LoanRequest request) {
-        return ++requestId;
+    public LoanResponse save(LoanRequest request) {
+        return new LoanResponse(ResponseType.DENIED, ++requestId, request);
     }
 }
