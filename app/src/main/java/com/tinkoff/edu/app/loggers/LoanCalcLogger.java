@@ -1,4 +1,4 @@
-package com.tinkoff.edu.app;
+package com.tinkoff.edu.app.loggers;
 
 /**
  * Created on 13.08.2021

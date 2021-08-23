@@ -1,11 +1,13 @@
-package com.tinkoff.edu.app;
+package com.tinkoff.edu.app.repositories;
+
+import com.tinkoff.edu.app.models.LoanRequest;
 
 /**
  * Created on 13.08.2021
  *
  * @author Natalya Vinogradova
  */
-public class StaticVariableLoanCalcRepository implements LoanCalcRepository{
+public class StaticVariableLoanCalcRepository implements LoanCalcRepository {
     private static int requestId = 0;
 
     /**

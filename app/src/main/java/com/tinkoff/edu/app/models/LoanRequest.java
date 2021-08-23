@@ -1,4 +1,6 @@
-package com.tinkoff.edu.app;
+package com.tinkoff.edu.app.models;
+
+import com.tinkoff.edu.app.enums.LoanType;
 
 /**
  * Created on 20.08.2021
