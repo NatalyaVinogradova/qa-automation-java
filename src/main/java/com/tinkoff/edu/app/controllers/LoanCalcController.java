@@ -11,9 +11,6 @@ import com.tinkoff.edu.app.services.LoanCalcService;
  * @author Natalya Vinogradova
  */
 public class LoanCalcController {
-    /**
-     * TODO Validates and logs request.
-     */
     private final LoanCalcService service;
 
     public LoanCalcController(LoanCalcService service) {
@@ -22,6 +19,7 @@ public class LoanCalcController {
 
     public LoanResponse createRequest(LoanRequest request) {
         LoanCalcLogger.log();
+        if (request == null) throw new IllegalArgumentException();
         return service.createRequest(request);
     }
 }
