@@ -25,4 +25,8 @@ public class LoanResponse {
     public int getRequestId() {
         return requestId;
     }
+
+    public LoanRequest getRequest(){
+        return request;
+    }
 }

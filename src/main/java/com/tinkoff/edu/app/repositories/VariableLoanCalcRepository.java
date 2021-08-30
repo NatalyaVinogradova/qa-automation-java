@@ -9,14 +9,21 @@ import com.tinkoff.edu.app.models.LoanResponse;
  *
  * @author Natalya Vinogradova
  */
-public class StaticVariableLoanCalcRepository implements LoanCalcRepository {
-    private static int requestId = 0;
+public class VariableLoanCalcRepository implements LoanCalcRepository {
+    private int requestId;
 
-    /**
-     * TODO persists request
-     *
-     * @return Request Id
-     */
+    public VariableLoanCalcRepository(int requestId) {
+        this.requestId = requestId;
+    }
+
+    public VariableLoanCalcRepository() {
+        this(0);
+    }
+
+    public int getRequestId() {
+        return requestId;
+    }
+
     @Override
     public LoanResponse save(LoanRequest request) {
         return new LoanResponse(ResponseType.DENIED, ++requestId, request);
