@@ -34,8 +34,7 @@ public class AppTest {
 
     @Test
     public void shouldGetIncrementedIdWhenAnyCall() {
-        final int NON_DEFAULT_ANY_ID = 2;
-        controller = new LoanCalcController(new ConcreteLoanCalcService(new VariableLoanCalcRepository(NON_DEFAULT_ANY_ID)));
+        controller = new LoanCalcController(new ConcreteLoanCalcService(new VariableLoanCalcRepository(2)));
         assertEquals(3, controller.createRequest(request).getRequestId());
         assertEquals(4, controller.createRequest(request).getRequestId());
     }
