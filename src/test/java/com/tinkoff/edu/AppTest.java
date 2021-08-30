@@ -37,6 +37,6 @@ public class AppTest {
         final int NON_DEFAULT_ANY_ID = 2;
         controller = new LoanCalcController(new ConcreteLoanCalcService(new VariableLoanCalcRepository(NON_DEFAULT_ANY_ID)));
         assertEquals(3, controller.createRequest(request).getRequestId());
-
+        assertEquals(4, controller.createRequest(request).getRequestId());
     }
 }
