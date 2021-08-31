@@ -2,13 +2,15 @@ package com.tinkoff.edu.app.models;
 
 import com.tinkoff.edu.app.enums.ResponseType;
 
+import java.util.Objects;
+
 /**
  * Created on 20.08.2021
  *
  * @author Natalya Vinogradova
  */
 public class LoanResponse {
-    private final ResponseType type;
+    private ResponseType type;
     private final int requestId;
     private final LoanRequest request;
 
@@ -20,6 +22,10 @@ public class LoanResponse {
 
     public ResponseType getType() {
         return type;
+    }
+
+    public void setType(ResponseType type) {
+        this.type = type;
     }
 
     public int getRequestId() {

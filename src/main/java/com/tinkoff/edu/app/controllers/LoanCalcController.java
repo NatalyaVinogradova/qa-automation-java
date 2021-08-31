@@ -19,7 +19,7 @@ public class LoanCalcController {
 
     public LoanResponse createRequest(LoanRequest request) {
         LoanCalcLogger.log();
-        if (request == null) throw new IllegalArgumentException();
+        //if (request == null) throw new IllegalArgumentException();
         return service.createRequest(request);
     }
 }
