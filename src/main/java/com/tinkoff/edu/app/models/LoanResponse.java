@@ -8,7 +8,7 @@ import com.tinkoff.edu.app.enums.ResponseType;
  * @author Natalya Vinogradova
  */
 public class LoanResponse {
-    private final ResponseType type;
+    private ResponseType type;
     private final int requestId;
     private final LoanRequest request;
 
@@ -22,11 +22,15 @@ public class LoanResponse {
         return type;
     }
 
+    public void setType(ResponseType type) {
+        this.type = type;
+    }
+
     public int getRequestId() {
         return requestId;
     }
 
-    public LoanRequest getRequest(){
+    public LoanRequest getRequest() {
         return request;
     }
 }

@@ -26,16 +26,8 @@ public class LoanRequest {
 
     public LoanRequest(LoanType type, int amount, int months) {
         this.type = type;
-        if (amount > 0 && amount <= 5000000) {
-            this.amount = amount;
-        } else {
-            this.amount = 0;
-        }
-        if (months > 0 && months <= 60) {
-            this.months = months;
-        } else {
-            this.months = 0;
-        }
+        this.amount = amount;
+        this.months = months;
     }
 
     public String toString() {
