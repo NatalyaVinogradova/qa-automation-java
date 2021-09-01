@@ -2,8 +2,6 @@ package com.tinkoff.edu.app.models;
 
 import com.tinkoff.edu.app.enums.ResponseType;
 
-import java.util.Objects;
-
 /**
  * Created on 20.08.2021
  *
@@ -32,7 +30,7 @@ public class LoanResponse {
         return requestId;
     }
 
-    public LoanRequest getRequest(){
+    public LoanRequest getRequest() {
         return request;
     }
 }

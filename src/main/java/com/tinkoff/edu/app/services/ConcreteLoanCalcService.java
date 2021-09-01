@@ -1,6 +1,5 @@
 package com.tinkoff.edu.app.services;
 
-import com.tinkoff.edu.app.enums.LoanType;
 import com.tinkoff.edu.app.enums.ResponseType;
 import com.tinkoff.edu.app.models.LoanRequest;
 import com.tinkoff.edu.app.models.LoanResponse;

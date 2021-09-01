@@ -86,67 +86,73 @@ public class AppTest {
     }
 
     @Test
-    public void shouldGetDeniedWhenPersonMore10000Amount(){
+    public void shouldGetDeniedWhenPersonMore10000Amount() {
         request = new LoanRequest(LoanType.PERSON, 11000, 11);
         assertEquals(ResponseType.DENIED, controller.createRequest(request).getType());
     }
 
     @Test
-    public void shouldGetDeniedWhenPersonMore12Months(){
+    public void shouldGetDeniedWhenPersonMore12Months() {
         request = new LoanRequest(LoanType.PERSON, 9000, 13);
         assertEquals(ResponseType.DENIED, controller.createRequest(request).getType());
     }
 
     @Test
-    public void shouldGetApprovedWhenOooMore10000Less12(){
+    public void shouldGetApprovedWhenOooMore10000Less12() {
         request = new LoanRequest(LoanType.OOO, 15000, 11);
         assertEquals(ResponseType.APPROVED, controller.createRequest(request).getType());
     }
 
     @Test
-    public void shouldGetDeniedWhenOooLess10000More12(){
+    public void shouldGetDeniedWhenOooLess10000More12() {
         request = new LoanRequest(LoanType.OOO, 5000, 15);
         assertEquals(ResponseType.DENIED, controller.createRequest(request).getType());
     }
 
     @Test
-    public void shouldGetDeniedWhenOooLess10000Less12(){
+    public void shouldGetDeniedWhenOooLess10000Less12() {
         request = new LoanRequest(LoanType.OOO, 5000, 6);
         assertEquals(ResponseType.DENIED, controller.createRequest(request).getType());
     }
 
     @Test
-    public void shouldGetDeniedWhenOooEquals10000More12(){
+    public void shouldGetDeniedWhenOooEquals10000More12() {
         request = new LoanRequest(LoanType.OOO, 10000, 15);
         assertEquals(ResponseType.DENIED, controller.createRequest(request).getType());
     }
 
     @Test
-    public void shouldGetDeniedWhenOooEquals10000Less12(){
+    public void shouldGetDeniedWhenOooEquals10000Less12() {
         request = new LoanRequest(LoanType.OOO, 10000, 1);
         assertEquals(ResponseType.DENIED, controller.createRequest(request).getType());
     }
 
     @Test
-    public void shouldGetDeniedWhenOooLess10000Equals12(){
+    public void shouldGetDeniedWhenOooLess10000Equals12() {
         request = new LoanRequest(LoanType.OOO, 9000, 12);
         assertEquals(ResponseType.DENIED, controller.createRequest(request).getType());
     }
 
     @Test
-    public void shouldGetDeniedWhenOooMore10000More12(){
+    public void shouldGetDeniedWhenOooMore10000More12() {
         request = new LoanRequest(LoanType.OOO, 15000, 15);
         assertEquals(ResponseType.DENIED, controller.createRequest(request).getType());
     }
 
     @Test
-    public void shouldGetDeniedWhenOooMore10000Equals12(){
+    public void shouldGetDeniedWhenOooMore10000Equals12() {
         request = new LoanRequest(LoanType.OOO, 15000, 12);
         assertEquals(ResponseType.DENIED, controller.createRequest(request).getType());
     }
 
     @Test
-    public void shouldGetDeniedWhenIp(){
+    public void shouldGetDeniedWhenOooEquals10000Equals12() {
+        request = new LoanRequest(LoanType.OOO, 10000, 12);
+        assertEquals(ResponseType.DENIED, controller.createRequest(request).getType());
+    }
+
+    @Test
+    public void shouldGetDeniedWhenIp() {
         request = new LoanRequest(LoanType.IP, 10000, 12);
         assertEquals(ResponseType.DENIED, controller.createRequest(request).getType());
         request = new LoanRequest(LoanType.IP, 15000, 13);
