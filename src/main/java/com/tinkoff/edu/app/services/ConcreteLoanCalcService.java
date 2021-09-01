@@ -22,28 +22,34 @@ public class ConcreteLoanCalcService implements LoanCalcService {
     }
 
     public LoanResponse createRequest(LoanRequest request) {
-        if (request == null){
+        if (request == null) {
             return new LoanResponse(ResponseType.DENIED, -1, null);
         }
-        if (request.getAmount() <= 0){
+        if (request.getAmount() <= 0) {
             return new LoanResponse(ResponseType.DENIED, -1, request);
         }
-        if (request.getMonths() <= 0){
+        if (request.getMonths() <= 0) {
             return new LoanResponse(ResponseType.DENIED, -1, request);
         }
         LoanResponse response = repository.save(request);
-        if (request.getType() == LoanType.PERSON && request.getAmount() <= 10000 && request.getMonths() <= 12) {
-            response.setType(ResponseType.APPROVED);
-        } else {
-            response.setType(ResponseType.DENIED);
-        }
-        if (request.getType() == LoanType.OOO && request.getAmount() > 10000 && request.getMonths() < 12){
-            response.setType(ResponseType.APPROVED);
-        }else if (request.getType() == LoanType.OOO && (request.getAmount() <= 10000 || request.getMonths() >= 12)){
-            response.setType(ResponseType.DENIED);
-        }
-        if (request.getType() == LoanType.IP){
-            response.setType(ResponseType.DENIED);
+        switch (request.getType()) {
+            case PERSON:
+                if (request.getAmount() <= 10000 && request.getMonths() <= 12) {
+                    response.setType(ResponseType.APPROVED);
+                } else {
+                    response.setType(ResponseType.DENIED);
+                }
+                break;
+            case OOO:
+                if (request.getAmount() > 10000 && request.getMonths() < 12) {
+                    response.setType(ResponseType.APPROVED);
+                } else if (request.getAmount() <= 10000 || request.getMonths() >= 12) {
+                    response.setType(ResponseType.DENIED);
+                }
+                break;
+            case IP:
+                response.setType(ResponseType.DENIED);
+                break;
         }
         return response;
     }
