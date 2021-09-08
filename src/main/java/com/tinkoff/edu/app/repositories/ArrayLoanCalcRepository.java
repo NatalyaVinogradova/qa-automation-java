@@ -43,6 +43,9 @@ public class ArrayLoanCalcRepository implements LoanCalcRepository {
         int index = 0;
         int result = -1;
         for (LoanResponse item : responsesArray) {
+            if (item == null) {
+                break;
+            }
             if (requestId == item.getRequestId()) {
                 result = index;
                 break;

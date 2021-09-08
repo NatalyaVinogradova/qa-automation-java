@@ -1,6 +1,7 @@
 package com.tinkoff.edu;
 
 import com.tinkoff.edu.app.controllers.LoanCalcController;
+import com.tinkoff.edu.app.enums.ResponseType;
 import com.tinkoff.edu.app.models.EntryNotFoundException;
 import com.tinkoff.edu.app.models.LoanBusinessException;
 import com.tinkoff.edu.app.models.LoanRequest;
@@ -58,5 +59,32 @@ public class ArrayRepositoryTest {
         assertThrows(LoanBusinessException.class, () -> {
             controller.getLoanResponse(UUID.randomUUID());
         });
+    }
+
+    @Test
+    public void shouldGetBusinessExceptionForNullUpdate() {
+        assertThrows(LoanBusinessException.class, () -> {
+            controller.updateLoanResponse(null);
+        });
+    }
+
+    @Test
+    public void shouldGetBusinessExceptionForNotExistingId() {
+        LoanRequest request = new LoanRequest(PERSON, 1000, 10, "Петров-Боткин");
+        LoanResponse response = new LoanResponse(ResponseType.DENIED, request);
+        assertThrows(EntryNotFoundException.class, () -> {
+            ArrayLoanCalcRepository repository = new ArrayLoanCalcRepository();
+            repository.update(response);
+        });
+    }
+
+    @Test
+    public void shouldUpdateSuccess() {
+        LoanRequest request = new LoanRequest(PERSON, 1000, 10, "Петров-Боткин");
+        LoanResponse response = controller.createRequest(request);
+        response.setType(ResponseType.APPROVED);
+        controller.updateLoanResponse(response);
+        LoanResponse updatedResponse = controller.getLoanResponse(response.getRequestId());
+        assertEquals(response.getType(), updatedResponse.getType());
     }
 }
