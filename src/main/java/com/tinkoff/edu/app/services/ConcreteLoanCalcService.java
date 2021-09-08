@@ -1,8 +1,12 @@
 package com.tinkoff.edu.app.services;
 
+import com.tinkoff.edu.app.enums.ResponseType;
+import com.tinkoff.edu.app.models.LoanBusinessException;
 import com.tinkoff.edu.app.models.LoanRequest;
 import com.tinkoff.edu.app.models.LoanResponse;
 import com.tinkoff.edu.app.repositories.LoanCalcRepository;
+
+import java.util.UUID;
 
 import static com.tinkoff.edu.app.enums.ResponseType.APPROVED;
 import static com.tinkoff.edu.app.enums.ResponseType.DENIED;
@@ -23,35 +27,57 @@ public class ConcreteLoanCalcService implements LoanCalcService {
     }
 
     public LoanResponse createRequest(LoanRequest request) {
-        if (request == null) {
-            return new LoanResponse(DENIED, -1, null);
+        ResponseType responseType = calculateResponseType(request);
+        LoanResponse response = new LoanResponse(responseType, request);
+        try {
+            response = repository.save(response);
+        } catch (RuntimeException exception) {
+            throw new LoanBusinessException("Закончилось место в хранилище.", exception);
         }
-        if (request.getAmount() <= 0) {
-            return new LoanResponse(DENIED, -1, request);
+        return response;
+    }
+
+    public LoanResponse getLoanResponseByRequestId(UUID requestId) {
+        LoanResponse response;
+        try {
+            response = repository.get(requestId);
+        } catch (RuntimeException exception) {
+            throw new LoanBusinessException("Не удалось получить заявку.", exception);
         }
-        if (request.getMonths() <= 0) {
-            return new LoanResponse(DENIED, -1, request);
+        return response;
+    }
+
+    public void update(LoanResponse response) {
+        try {
+            repository.update(response);
+        } catch (RuntimeException exception) {
+            throw new LoanBusinessException("Не удалось обновить заявку.", exception);
         }
-        LoanResponse response = repository.save(request);
+    }
+
+    public void clean() {
+        repository.clean();
+    }
+
+    private ResponseType calculateResponseType(LoanRequest request) {
+        ResponseType result = ResponseType.APPROVED;
         switch (request.getType()) {
             case PERSON:
-                if (request.getAmount() <= 10000 && request.getMonths() <= 12) {
-                    response.setType(APPROVED);
-                } else {
-                    response.setType(DENIED);
+                if (request.getAmount() > 10000) {
+                    result = ResponseType.DENIED;
+                }
+                if (request.getMonths() > 12) {
+                    result = ResponseType.DENIED;
                 }
                 break;
             case OOO:
-                if (request.getAmount() > 10000 && request.getMonths() < 12) {
-                    response.setType(APPROVED);
-                } else if (request.getAmount() <= 10000 || request.getMonths() >= 12) {
-                    response.setType(DENIED);
+                if (request.getAmount() <= 10000 || request.getMonths() >= 12) {
+                    result = ResponseType.DENIED;
                 }
                 break;
             case IP:
-                response.setType(DENIED);
-                break;
+                result = ResponseType.DENIED;
         }
-        return response;
+        return result;
     }
 }

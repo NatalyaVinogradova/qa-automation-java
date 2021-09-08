@@ -2,6 +2,8 @@ package com.tinkoff.edu.app.models;
 
 import com.tinkoff.edu.app.enums.ResponseType;
 
+import java.util.UUID;
+
 /**
  * Created on 20.08.2021
  *
@@ -9,13 +11,13 @@ import com.tinkoff.edu.app.enums.ResponseType;
  */
 public class LoanResponse {
     private ResponseType type;
-    private final int requestId;
+    private final UUID requestId;
     private final LoanRequest request;
 
-    public LoanResponse(ResponseType type, int requestId, LoanRequest request) {
+    public LoanResponse(ResponseType type, LoanRequest request) {
         this.request = request;
         this.type = type;
-        this.requestId = requestId;
+        this.requestId = UUID.randomUUID();
     }
 
     public ResponseType getType() {
@@ -26,7 +28,7 @@ public class LoanResponse {
         this.type = type;
     }
 
-    public int getRequestId() {
+    public UUID getRequestId() {
         return requestId;
     }
 
