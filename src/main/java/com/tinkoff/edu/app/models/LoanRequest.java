@@ -11,6 +11,7 @@ public class LoanRequest {
     private final LoanType type;
     private final int amount;
     private final int months;
+    private final String clientFullName;
 
     public int getAmount() {
         return amount;
@@ -24,15 +25,21 @@ public class LoanRequest {
         return type;
     }
 
-    public LoanRequest(LoanType type, int amount, int months) {
+    public String getClientFullName() {
+        return clientFullName;
+    }
+
+    public LoanRequest(LoanType type, int amount, int months, String fullName) {
         this.type = type;
         this.amount = amount;
         this.months = months;
+        this.clientFullName = fullName;
     }
 
     public String toString() {
         return "RQ: {"
                 + this.type + ", "
+                + this.clientFullName + ", "
                 + this.getAmount()
                 + " for " + this.getMonths()
                 + "}";
