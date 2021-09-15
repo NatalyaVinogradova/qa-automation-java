@@ -1,15 +1,14 @@
 package com.tinkoff.edu.app.services;
 
+import com.tinkoff.edu.app.enums.LoanType;
 import com.tinkoff.edu.app.enums.ResponseType;
 import com.tinkoff.edu.app.models.LoanBusinessException;
 import com.tinkoff.edu.app.models.LoanRequest;
 import com.tinkoff.edu.app.models.LoanResponse;
 import com.tinkoff.edu.app.repositories.LoanCalcRepository;
 
+import java.util.List;
 import java.util.UUID;
-
-import static com.tinkoff.edu.app.enums.ResponseType.APPROVED;
-import static com.tinkoff.edu.app.enums.ResponseType.DENIED;
 
 /**
  * Created on 13.08.2021
@@ -57,6 +56,16 @@ public class ConcreteLoanCalcService implements LoanCalcService {
 
     public void clean() {
         repository.clean();
+    }
+
+    @Override
+    public List<LoanResponse> getLoanResponsesByLoanType(LoanType loanType) {
+        return repository.getLoanResponsesByLoanType(loanType);
+    }
+
+    @Override
+    public int getLoanResponsesAmountSumByLoanType(LoanType loanType) {
+        return repository.getLoanResponsesAmountSumByLoanType(loanType);
     }
 
     private ResponseType calculateResponseType(LoanRequest request) {

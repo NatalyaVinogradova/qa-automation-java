@@ -1,13 +1,13 @@
 package com.tinkoff.edu.app.controllers;
 
 import com.tinkoff.edu.app.enums.LoanType;
-import com.tinkoff.edu.app.enums.ResponseType;
 import com.tinkoff.edu.app.models.LoanBusinessException;
 import com.tinkoff.edu.app.models.LoanRequest;
 import com.tinkoff.edu.app.models.LoanResponse;
 import com.tinkoff.edu.app.loggers.LoanCalcLogger;
 import com.tinkoff.edu.app.services.LoanCalcService;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -54,5 +54,13 @@ public class LoanCalcController {
         if (request.getClientFullName().length() < 10 || request.getClientFullName().length() > 100) {
             throw new LoanBusinessException("Указано некорректное ФИО.");
         }
+    }
+
+    public List<LoanResponse> getLoanResponsesByLoanType(LoanType loanType) {
+        return service.getLoanResponsesByLoanType(loanType);
+    }
+
+    public int getLoanResponsesAmountSumByLoanType(LoanType loanType){
+        return service.getLoanResponsesAmountSumByLoanType(loanType);
     }
 }
