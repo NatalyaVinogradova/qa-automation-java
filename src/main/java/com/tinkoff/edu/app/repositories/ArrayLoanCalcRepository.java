@@ -1,9 +1,12 @@
 package com.tinkoff.edu.app.repositories;
 
+import com.tinkoff.edu.app.enums.LoanType;
 import com.tinkoff.edu.app.models.EntryNotFoundException;
 import com.tinkoff.edu.app.models.LoanBusinessException;
 import com.tinkoff.edu.app.models.LoanResponse;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -37,6 +40,16 @@ public class ArrayLoanCalcRepository implements LoanCalcRepository {
     public void clean() {
         responsesArray = new LoanResponse[100000];
         nextIndex = 0;
+    }
+
+    @Override
+    public List<LoanResponse> getLoanResponsesByLoanType(LoanType loanType) {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public int getLoanResponsesAmountSumByLoanType(LoanType loanType) {
+        return 0;
     }
 
     private int getIndexByRequestId(UUID requestId) throws EntryNotFoundException {
