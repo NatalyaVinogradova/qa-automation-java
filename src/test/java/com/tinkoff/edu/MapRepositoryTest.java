@@ -77,15 +77,10 @@ public class MapRepositoryTest {
             controller.createRequest(requestOoo);
             controller.createRequest(requestPerson);
         }
-        List<LoanResponse> responseArray = controller.getLoanResponsesByLoanType(OOO);
-        assertAll(() -> {
-            for (LoanResponse response : responseArray) {
-                if (response.getRequest().getType() != OOO) {
-                    throw new LoanBusinessException("Получена заявка не от ООО");
-                }
-            }
-        });
-        assertEquals(5, responseArray.size());
+        List<LoanResponse> responseList = controller.getLoanResponsesByLoanType(OOO);
+        for (LoanResponse response : responseList) {
+            assertEquals(response.getRequest().getType(), OOO);
+        }
     }
 
     @Test
