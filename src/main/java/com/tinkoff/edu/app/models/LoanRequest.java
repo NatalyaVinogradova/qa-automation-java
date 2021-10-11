@@ -1,5 +1,7 @@
 package com.tinkoff.edu.app.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tinkoff.edu.app.enums.LoanType;
 
 /**
@@ -29,7 +31,8 @@ public class LoanRequest {
         return clientFullName;
     }
 
-    public LoanRequest(LoanType type, int amount, int months, String fullName) {
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+    public LoanRequest(@JsonProperty("type") LoanType type, @JsonProperty("amount") int amount, @JsonProperty("months") int months, @JsonProperty("fullName") String fullName) {
         this.type = type;
         this.amount = amount;
         this.months = months;
