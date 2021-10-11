@@ -7,7 +7,7 @@ import com.tinkoff.edu.app.models.LoanBusinessException;
 import com.tinkoff.edu.app.models.LoanRequest;
 import com.tinkoff.edu.app.models.LoanResponse;
 import com.tinkoff.edu.app.repositories.ArrayLoanCalcRepository;
-import com.tinkoff.edu.app.repositories.MapLoanCalcRepository;
+import com.tinkoff.edu.app.repositories.FileLoanCalcRepository;
 import com.tinkoff.edu.app.services.ConcreteLoanCalcService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,18 +17,20 @@ import java.util.UUID;
 
 import static com.tinkoff.edu.app.enums.LoanType.OOO;
 import static com.tinkoff.edu.app.enums.LoanType.PERSON;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class MapRepositoryTest {
+public class FileRepositoryTest {
     private LoanCalcController controller;
 
     @BeforeEach
     public void init() {
-        controller = new LoanCalcController(new ConcreteLoanCalcService(new MapLoanCalcRepository()));
+        controller = new LoanCalcController(new ConcreteLoanCalcService(new FileLoanCalcRepository()));
     }
 
     @Test
     public void shouldFindResponseInRepository() {
+        controller.clean();
         LoanRequest request = new LoanRequest(OOO, 10000, 11, "КРОВЬ И СЛЕЗЫ");
         LoanResponse response = controller.createRequest(request);
         LoanResponse loanResponse = controller.getLoanResponse(response.getRequestId());
@@ -61,6 +63,7 @@ public class MapRepositoryTest {
 
     @Test
     public void shouldUpdateSuccess() {
+        controller.clean();
         LoanRequest request = new LoanRequest(PERSON, 1000, 10, "Петров-Боткин");
         LoanResponse response = controller.createRequest(request);
         response.setType(ResponseType.APPROVED);
@@ -71,6 +74,7 @@ public class MapRepositoryTest {
 
     @Test
     public void shouldGetAllRequestsByOoo() {
+        controller.clean();
         for (int i = 0; i < 5; i++) {
             LoanRequest requestOoo = new LoanRequest(OOO, 11000 + i, 10, "Биг компани");
             LoanRequest requestPerson = new LoanRequest(PERSON, 1000 + i, 10, "Иванов Иван");
@@ -85,6 +89,7 @@ public class MapRepositoryTest {
 
     @Test
     public void shouldGetAmountSumAllRequestsByOoo() {
+        controller.clean();
         for (int i = 0; i < 5; i++) {
             LoanRequest requestOoo = new LoanRequest(OOO, 11000 + i, 10, "Биг компани");
             LoanRequest requestPerson = new LoanRequest(PERSON, 1000 + i, 10, "Иванов Иван");

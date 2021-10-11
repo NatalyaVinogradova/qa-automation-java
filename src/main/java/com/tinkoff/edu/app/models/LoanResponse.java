@@ -1,5 +1,7 @@
 package com.tinkoff.edu.app.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tinkoff.edu.app.enums.ResponseType;
 
 import java.util.UUID;
@@ -18,6 +20,13 @@ public class LoanResponse {
         this.request = request;
         this.type = type;
         this.requestId = UUID.randomUUID();
+    }
+
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+    public LoanResponse(@JsonProperty("type") ResponseType type, @JsonProperty("request") LoanRequest request, @JsonProperty("requestId") UUID requestId) {
+        this.request = request;
+        this.type = type;
+        this.requestId = requestId;
     }
 
     public ResponseType getType() {
